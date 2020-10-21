@@ -1,0 +1,8 @@
+body {
+  background-image: url("images/front_page.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+/* Snow effect */
