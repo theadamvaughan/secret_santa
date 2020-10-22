@@ -4,41 +4,59 @@
 <head>
   <meta charset="UTF-8">
   <title>New Party</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=font1|font2|etc" type="text/css">
+  <link rel="stylesheet" href="stylesheet.css" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
-<h2>New Party</h2>
 
-<form action="/action_page.php">
+<div>
 
-  <label for="party_name">Party Name:</label><br>
-  <input type="text" id="party_name" name="party_name" value="Party Name"><br><br>
+  <h2>New Party</h2>
 
-  <label for="party_date">Party Date:</label><br>
-  <input type="text" id="party_date" name="party_date" value="Date"><br><br>
+  <form action="/action_page.php">
 
-  <label for="closing_date">Closing Date:</label><br>
-  <input type="text" id="closing_date" name="closing_date" value="Closing Date"><br><br>
+    <label for="party_name">Party Name:</label><br>
+    <input type="text" id="party_name" name="party_name" value="Party Name"><br><br>
 
-  <label for="party_location">Party Location:</label><br>
-  <input type="text" id="party_location" name="party_location" value="Location"><br><br>
+    <label for="party_date">Party Date:</label><br>
+    <input type="text" id="party_date" name="party_date" value="Date"><br><br>
 
-  <label for="max_cost">Max Present Cost:</label><br>
-  <input type="text" id="max_cost" name="max_cost" value="Cost"><br><br>
+    <label for="closing_date">Closing Date:</label><br>
+    <input type="text" id="closing_date" name="closing_date" value="Closing Date"><br><br>
 
-  <label for="host_name">Host's Name:</label><br>
-  <input type="text" id="host_name" name="host_name" value="Host"><br><br>
+    <label for="party_location">Party Location:</label><br>
+    <input type="text" id="party_location" name="party_location" value="Location"><br><br>
 
-  <label for="host_email">Host's Email':</label><br>
-  <input type="text" id="host_email" name="host_email" value="Email"><br><br>
+    <label for="max_cost">Max Present Cost:</label><br>
+    <input type="text" id="max_cost" name="max_cost" value="Cost"><br><br>
 
-  <input type="submit" value="Create Party!">
-</form>
+    <label for="host_name">Host's Name:</label><br>
+    <input type="text" id="host_name" name="host_name" value="Host"><br><br>
 
-<p>If you click the "Submit" button, the form-data will be sent to the database.</p>
+    <label for="host_email">Host's Email':</label><br>
+    <input type="text" id="host_email" name="host_email" value="Email"><br><br>
 
+    <input type="submit" value="Create Party!">
+  </form>
+
+  <p>If you click the "Submit" button, the form-data will be sent to the database.</p>
+
+</div>
+
+<script>
+
+  function classToggle() {
+    const navs = document.querySelectorAll('.Navbar__Items')
+
+    navs.forEach(nav => nav.classList.toggle('Navbar__ToggleShow'));
+  }
+
+  document.querySelector('.Navbar__Link-toggle')
+    .addEventListener('click', classToggle);
+
+</script>
 
 
 </body>
