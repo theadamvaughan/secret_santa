@@ -5,4 +5,13 @@ body {
   background-size: 100% 100%;
 }
 
-/* Snow effect */
+form,
+p,
+h2 {
+  color: white;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+}
