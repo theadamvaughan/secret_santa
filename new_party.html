@@ -1,64 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
   <title>New Party</title>
-  <link rel="stylesheet" href="stylesheet.css" type="text/css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="description" content="Web based secret santa application. Creating a new party" />
 </head>
 
 <body>
 
+  <container class="container-new-party">
 
-<div>
+    <div class="col-12 cont-main">
+      <div>
+        <h1>New Party</h1>
+      </div>
 
-  <h2>New Party</h2>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="validationCustom01">First name</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="First Name" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="hostSurname">Surname</label>
+            <input type="text" class="form-control" placeholder="Surname" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Email Address</label>
+          <input type="email" class="form-control" id="inputEmailAddress" placeholder="email@example.co.uk" required>
+        </div>
+        <div class="form-group">
+          <label for="partyLocation">Party Location</label>
+          <input type="text" class="form-control" id="partyLocation" placeholder="The Black Lion" required>
+        </div>
+        <div class="form-row"> 
+         <div class="form-group col-md-4">
+            <label for="maxCost">Max Present Cost (£)</label>
+            <input type="text" class="form-control" id="maxCost" placeholder="5" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="partyDate">Party Date</label>
+            <input type="text" class="form-control" id="partyDate" placeholder="25/12/2020" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="closingDate">Closing Date</label>
+            <input type="text" class="form-control" id="closingDate" placeholder="25/12/2020" required>
+          </div>
+        </div>
+        <div class="btn-new-party">
+        <button type="submit" class="btn btn-success btn-lg"><a href="party_created.html">Create Party!</button>
+        </div>
+      </form>
+      <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict';
+          window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+              form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+      </script>
+    </div>
 
-  <form action="/action_page.php">
+  </container>
 
-    <label for="party_name">Party Name:</label><br>
-    <input type="text" id="party_name" name="party_name" value="Party Name"><br><br>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
 
-    <label for="party_date">Party Date:</label><br>
-    <input type="text" id="party_date" name="party_date" value="Date"><br><br>
-
-    <label for="closing_date">Closing Date:</label><br>
-    <input type="text" id="closing_date" name="closing_date" value="Closing Date"><br><br>
-
-    <label for="party_location">Party Location:</label><br>
-    <input type="text" id="party_location" name="party_location" value="Location"><br><br>
-
-    <label for="max_cost">Max Present Cost:</label><br>
-    <input type="text" id="max_cost" name="max_cost" value="Cost"><br><br>
-
-    <label for="host_name">Host's Name:</label><br>
-    <input type="text" id="host_name" name="host_name" value="Host"><br><br>
-
-    <label for="host_email">Host's Email':</label><br>
-    <input type="text" id="host_email" name="host_email" value="Email"><br><br>
-
-    <input type="submit" value="Create Party!">
-  </form>
-
-  <p>If you click the "Submit" button, the form-data will be sent to the database.</p>
-
-</div>
-
-<script>
-
-  function classToggle() {
-    const navs = document.querySelectorAll('.Navbar__Items')
-
-    navs.forEach(nav => nav.classList.toggle('Navbar__ToggleShow'));
-  }
-
-  document.querySelector('.Navbar__Link-toggle')
-    .addEventListener('click', classToggle);
-
-</script>
-
-
+  <!-- Snowstorm JavaScript -->
+  <script src="snowstorm-min.js"></script>
 </body>
 
 </html>
