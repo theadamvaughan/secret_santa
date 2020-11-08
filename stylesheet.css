@@ -39,7 +39,8 @@ a {
   }
 }
 
-.btn-main {
+.btn-main,
+.btn-copy {
   margin: 10px 20px;
   padding: 10px 33px;
 }
@@ -64,4 +65,9 @@ a {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.unique_code {
+  width: 350px;
+  text-align: center;
 }
