@@ -1,17 +1,58 @@
 body {
-  background-image: url("images/front_page.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+  background-color: brown;
+  height: 100vh;
 }
 
-form,
-p,
-h2 {
+h1 {
+  font-size: 5rem;
   color: white;
 }
 
-div {
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.main-button {
+  margin: 20px 0;
+}
+
+@media only screen and (max-width: 425px) {
+  .main-button {
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+  .footer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.btn-main {
+  margin: 10px 20px;
+  padding: 10px 33px;
+}
+
+.cont-main {
+  height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
