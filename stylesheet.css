@@ -1,6 +1,7 @@
 body {
   background-color: brown;
   height: 100vh;
+  font-family: "Raleway", sans-serif;
 }
 
 h1 {
@@ -8,20 +9,21 @@ h1 {
   color: white;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+form,
+p {
   color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 .main-button {
   margin: 20px 0;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 529px) {
   .main-button {
     display: flex;
     flex-direction: column;
@@ -42,6 +44,12 @@ h1 {
   padding: 10px 33px;
 }
 
+.btn-new-party {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cont-main {
   height: 25rem;
   display: flex;
@@ -50,7 +58,8 @@ h1 {
   flex-direction: column;
 }
 
-.container {
+.container,
+.container-new-party {
   display: flex;
   justify-content: center;
   align-items: center;
