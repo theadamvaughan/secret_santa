@@ -1,21 +1,21 @@
 const mongoose = require('mongoose')
 const Party = mongoose.Schema({
-  name: {
+  party_location: {
     type: String,
     required:true
   },
-  email: {
-    type: String,
+  max_cost: {
+    type: Number,
     required:true
   },
-  password: {
-    type: String,
-    required:true
+  party_date: {
+    type: Date,
+    default: Date.now
   },
-  date: {
+  closing_date: {
     type: Date,
     default: Date.now
   }
 })
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('Party', Party)

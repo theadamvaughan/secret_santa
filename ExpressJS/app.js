@@ -1,37 +1,99 @@
 const express = require('express')
 const app = express()
-
 const mongoose = require('mongoose')
 const env = require('dotenv/config')
 
 app.use(express.json())
 
-const UserModel = require('../models/user')
-const PartyModel = require('../model/party')
+const UserModel = require('./models/user')
+const PartyModel = require('./models/party')
 
-router.get('/home', (req, res) => {
+app.get('/home', (req, res) => {
   res.json({
     body: {
       message: "Home API"
     }
+  }) 
+})
+
+// Adding new party
+
+app.post('/new_party', async (req, res) => {
+  const party = new PartyModel({
+    party_location: req.body.party_location,
+    max_cost: req.body.max_cost,
+    party_date: req.body.party_date,
+    closing_date: req.body.closing_date
+  });
+
+  party.save(function (err, resp) {
+    if (err) return res.send(err)
+    res.send(resp)
   })
 })
 
-router.post('/add', async (req, res) => {
+// Get party by ID
+
+app.get('/party/:id', async (req, res) => {
+  const id = req.params.id;
+  const party = await PartyModel.findById(id)
+
+  try {
+    res.send(party)
+  } catch (err) {
+    res.send(err)
+  }
+
+})
+
+// Find all parties
+
+app.get('/parties', async (req, res) => {
+  const party = await PartyModel.find()
+
+  try {
+    res.send(party)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+
+// Add user
+
+app.post('/add', async (req, res) => {
   const user = new UserModel({
-    name: req.body.name,
+    first_name: req.body.first_name,
+    surname_name: req.body.surname_name,
     email: req.body.email,
-    password: req.body.password
-  })
+    date: req.body.date
+  });
 
   user.save(function (err, resp) {
     if (err) return res.send(err)
     res.send(resp)
-  });
+  })
 })
 
+// Add user to a party
 
-router.get('/all', async (req, res) => {
+app.post('/party/add', async (req, res) => {
+  const user = new UserModel({
+    first_name: req.body.first_name,
+    surname_name: req.body.surname_name,
+    email: req.body.email,
+  });
+
+  user.save(function (err, resp) {
+    if (err) return res.send(err)
+    res.send(resp)
+  })
+})
+
+// Find all users
+
+
+app.get('/all', async (req, res) => {
   const users = await UserModel.find()
 
   try {
@@ -41,8 +103,9 @@ router.get('/all', async (req, res) => {
   }
 })
 
+// Find user by ID
 
-router.get('/user/:id', async (req, res) => {
+app.get('./user/:id', async (req, res) => {
   const id = req.params.id;
   const users = await UserModel.findById(id)
 
@@ -54,7 +117,9 @@ router.get('/user/:id', async (req, res) => {
 
 })
 
-router.delete('/user/:id', async (req, res) => {
+// Delete user by ID
+
+app.delete('/user/:id', async (req, res) => {
   const id = req.params.id;
   const deletedUser = await UserModel.deleteOne({
     _id: id
@@ -68,7 +133,9 @@ router.delete('/user/:id', async (req, res) => {
 
 })
 
-router.patch('/user/:id', async (req, res) => {
+// Update user by ID
+
+app.patch('/user/:id', async (req, res) => {
   const id = req.params.id;
   const update = await UserModel.update(
     { _id: id },
@@ -83,6 +150,9 @@ router.patch('/user/:id', async (req, res) => {
     res.send(err)
   }
 })
+
+
+// Start up messages
 
 
 app.listen(3000, () => {
