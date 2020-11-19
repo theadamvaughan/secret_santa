@@ -8,6 +8,16 @@ app.use(express.json())
 const UserModel = require('./models/user')
 const PartyModel = require('./models/party')
 
+function create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
 app.get('/home', (req, res) => {
   res.json({
     body: {
@@ -40,11 +50,14 @@ app.post('/new_party', async (req, res) => {
       console.log(err)
     } else {
       // Get their ID
-      party.host_id = resp._id
-      console.log(party)
+      party.host_id = create_UUID()
+      user.user_id = party.host_id
+      party.invite_code = create_UUID()
       party.save()
+      user.save()
     }
   })
+
 
 
   // Make a new party

@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const Party = mongoose.Schema({
   invite_code: {
     type: String,
-    required: true
+    default: null
   },
   host_id: {
-    type: Number,
+    type: String,
   },
   party_location: {
     type: String,
