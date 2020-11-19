@@ -5,8 +5,7 @@ const Party = mongoose.Schema({
     required: true
   },
   host_id: {
-    type: Number, 
-    required: true
+    type: Number,
   },
   party_location: {
     type: String,

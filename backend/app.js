@@ -13,25 +13,58 @@ app.get('/home', (req, res) => {
     body: {
       message: "Home API"
     }
-  }) 
+  })
 })
 
 // Adding new party
 
 app.post('/new_party', async (req, res) => {
-  const party = new PartyModel({
-    invite_code: req.body.invite_code,
-    host_id: req.body.host_id,
-    party_location: req.body.party_location,
-    max_cost: req.body.max_cost,
-    party_date: req.body.party_date,
-    closing_date: req.body.closing_date
+  // Make a new user
+  const user = new UserModel({
+    first_name: req.body.first_name,
+    surname_name: req.body.surname,
+    email: req.body.email_address,
   });
 
-  party.save(function (err, resp) {
-    if (err) return res.send(err)
-    res.send(resp)
+  const party = new PartyModel({
+    invite_code: null,
+    party_location: req.body.party_location,
+    max_cost: req.body.max_cost,
+    party_date: Date.parse(req.body.party_date),
+    closing_date: Date.parse(req.body.closing_date)
+  });
+
+  user.save((err, resp) => {
+    if (err) {
+      console.log('ERRRORRRRRRRRRR!')
+      console.log(err)
+    } else {
+      // Get their ID
+      party.host_id = resp._id
+      console.log(party)
+      party.save()
+    }
   })
+
+
+  // Make a new party
+  // Update the user with the party_id
+  // Return something
+
+
+//   const party = new PartyModel({
+//     invite_code: req.body.invite_code,
+//     host_id: req.body.host_id,
+//     party_location: req.body.party_location,
+//     max_cost: req.body.max_cost,
+//     party_date: req.body.party_date,
+//     closing_date: req.body.closing_date
+//   });
+
+//   party.save(function (err, resp) {
+//     if (err) return res.send(err)
+//     res.send(resp)
+//   })
 })
 
 // Get party by ID

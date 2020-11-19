@@ -14,7 +14,6 @@ const User = mongoose.Schema({
   },
   party_id: {
     type: String,
-    required: true
   }
 })
 
