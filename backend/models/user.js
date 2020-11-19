@@ -10,11 +10,11 @@ const User = mongoose.Schema({
   },
   email: {
     type: String,
-    required:true
+    required: true
   },
-  date: {
-    type: Date,
-    default: Date.now
+  party_id: {
+    type: String,
+    required: true
   }
 })
 

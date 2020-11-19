@@ -1,5 +1,13 @@
 const mongoose = require('mongoose')
 const Party = mongoose.Schema({
+  invite_code: {
+    type: String,
+    required: true
+  },
+  host_id: {
+    type: Number, 
+    required: true
+  },
   party_location: {
     type: String,
     required:true
@@ -9,12 +17,10 @@ const Party = mongoose.Schema({
     required:true
   },
   party_date: {
-    type: Date,
-    default: Date.now
+    type: Date
   },
   closing_date: {
-    type: Date,
-    default: Date.now
+    type: Date
   }
 })
 

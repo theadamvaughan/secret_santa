@@ -20,6 +20,8 @@ app.get('/home', (req, res) => {
 
 app.post('/new_party', async (req, res) => {
   const party = new PartyModel({
+    invite_code: req.body.invite_code,
+    host_id: req.body.host_id,
     party_location: req.body.party_location,
     max_cost: req.body.max_cost,
     party_date: req.body.party_date,
@@ -82,6 +84,7 @@ app.post('/party/add', async (req, res) => {
     first_name: req.body.first_name,
     surname_name: req.body.surname_name,
     email: req.body.email,
+    party_id: req.body.party_id
   });
 
   user.save(function (err, resp) {
