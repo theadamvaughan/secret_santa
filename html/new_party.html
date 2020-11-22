@@ -29,33 +29,43 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="validationCustom01">First name</label>
-            <input type="text" class="form-control" id="validationCustom01" placeholder="First Name" required>
+            <input type="text" class="form-control" id="first_name" aria-label="first name" placeholder="First Name" required>
           </div>
           <div class="form-group col-md-6">
             <label for="hostSurname">Surname</label>
-            <input type="text" class="form-control" placeholder="Surname" required>
+            <input type="text" class="form-control" id="surname" aria-label="surname" placeholder="Surname" required>
           </div>
         </div>
         <div class="form-group">
           <label for="inputAddress">Email Address</label>
-          <input type="email" class="form-control" id="inputEmailAddress" placeholder="email@example.co.uk" required>
+          <input type="email" class="form-control" id="inputEmailAddress" aria-label="email address" placeholder="email@example.co.uk" required>
         </div>
         <div class="form-group">
           <label for="partyLocation">Party Location</label>
-          <input type="text" class="form-control" id="partyLocation" placeholder="The Black Lion" required>
+          <input type="text" class="form-control" id="partyLocation" aria-label="party location" placeholder="The Black Lion" required>
         </div>
         <div class="form-row"> 
-         <div class="form-group col-md-4">
-            <label for="maxCost">Max Present Cost (£)</label>
-            <input type="text" class="form-control" id="maxCost" placeholder="5" required>
-          </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="partyDate">Party Date</label>
-            <input type="text" class="form-control" id="partyDate" placeholder="25/12/2020" required>
+            <input type="text" class="form-control" id="partyDate" aria-label="party date" placeholder="DD/MM/YYYY" required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
+            <label for="partyDate">Party Start Time</label>
+            <input type="text" class="form-control" id="partyDate" aria-label="party start time" placeholder="20:00" required>
+          </div>
+          <div class="form-group col-md-3">
             <label for="closingDate">Closing Date</label>
-            <input type="text" class="form-control" id="closingDate" placeholder="25/12/2020" required>
+            <input type="text" class="form-control" id="closingDate" aria-label="closing date" placeholder="DD/MM/YYYY" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="partyDate">Closing Time</label>
+            <input type="text" class="form-control" id="partyDate" aria-label="closing time" placeholder="20:00" required>
+          </div>
+        </div>
+        <div class='form-row'>
+          <div class="form-group col-md-3">
+            <label for="maxCost">Max Present Cost (£)</label>
+            <input type="text" class="form-control" id="maxCost" aria-label="maximum present cost" placeholder="5" required>
           </div>
         </div>
         <div class="btn-new-party">
