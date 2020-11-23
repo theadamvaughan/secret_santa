@@ -2,11 +2,10 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const env = require('dotenv/config')
-
-app.use(express.json())
-
 const UserModel = require('./models/user')
 const PartyModel = require('./models/party')
+app.use(express.json())
+
 
 function create_UUID(){
     var dt = new Date().getTime();
@@ -17,6 +16,14 @@ function create_UUID(){
     });
     return uuid;
 }
+
+function find_party_id() {
+  var ObjectId = require('mongodb').ObjectId; 
+  var id = req.params._id;       
+  var o_id = new ObjectId(id);
+  db.parties.find({_id:o_id})
+}
+
 
 app.get('/home', (req, res) => {
   res.json({
@@ -32,57 +39,46 @@ app.post('/new_party', async (req, res) => {
   // Make a new user
   const user = new UserModel({
     first_name: req.body.first_name,
-    surname_name: req.body.surname,
+    surname: req.body.surname,
     email: req.body.email_address,
+    party_id: null,
   });
-
+  // makes new party 
   const party = new PartyModel({
     invite_code: null,
     party_location: req.body.party_location,
     max_cost: req.body.max_cost,
     party_date: Date.parse(req.body.party_date),
-    closing_date: Date.parse(req.body.closing_date)
+    closing_date: Date.parse(req.body.closing_date),
   });
 
   user.save((err, resp) => {
     if (err) {
-      console.log('ERRRORRRRRRRRRR!')
+      console.log('ERROR!')
       console.log(err)
     } else {
-      // Get their ID
+
+      // Generating users host ID
       party.host_id = create_UUID()
+      // Copying host ID to user ID
       user.user_id = party.host_id
+      // Generating invite_code
       party.invite_code = create_UUID()
+      // Linking invite code to users
+      user.party_id = party.invite_code
       party.save()
+      console.log('New party save confirmed')
       user.save()
+      console.log('New host save confirmed')
     }
   })
-
-
-
-  // Make a new party
-  // Update the user with the party_id
-  // Return something
-
-
-//   const party = new PartyModel({
-//     invite_code: req.body.invite_code,
-//     host_id: req.body.host_id,
-//     party_location: req.body.party_location,
-//     max_cost: req.body.max_cost,
-//     party_date: req.body.party_date,
-//     closing_date: req.body.closing_date
-//   });
-
-//   party.save(function (err, resp) {
-//     if (err) return res.send(err)
-//     res.send(resp)
-//   })
 })
 
 // Get party by ID
 
-app.get('/party/:id', async (req, res) => {
+// NEED TO GET THIS TO FIND BY INVITE IN THE URL..................................
+
+app.get('/party/:invite_code', async (req, res) => {
   const id = req.params.id;
   const party = await PartyModel.findById(id)
 
@@ -107,35 +103,26 @@ app.get('/parties', async (req, res) => {
 })
 
 
-// Add user
-
-app.post('/add', async (req, res) => {
-  const user = new UserModel({
-    first_name: req.body.first_name,
-    surname_name: req.body.surname_name,
-    email: req.body.email,
-    date: req.body.date
-  });
-
-  user.save(function (err, resp) {
-    if (err) return res.send(err)
-    res.send(resp)
-  })
-})
-
 // Add user to a party
+// NEED TO ADD THE PARTY ID FROM THE DATABASE AS A RELATIONSHIP TO THE USER.............................
 
 app.post('/party/add', async (req, res) => {
   const user = new UserModel({
     first_name: req.body.first_name,
-    surname_name: req.body.surname_name,
-    email: req.body.email,
-    party_id: req.body.party_id
+    surname: req.body.surname,
+    email: req.body.email_address,
+    party_id: req.body.invite,
   });
 
-  user.save(function (err, resp) {
-    if (err) return res.send(err)
-    res.send(resp)
+user.save((err, resp) => {
+    if (err) {
+      console.log('ERROR!')
+      console.log(err)
+    } else {
+      user.user_id = create_UUID()
+      user.save()
+      console.log('User save confirmed')
+    }
   })
 })
 
