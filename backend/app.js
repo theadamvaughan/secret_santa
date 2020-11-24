@@ -18,8 +18,8 @@ function create_UUID(){
 }
 
 function find_party_id() {
-  var ObjectId = require('mongodb').ObjectId; 
-  var id = req.params._id;       
+  var ObjectId = require('mongodb').ObjectId;
+  var id = req.params._id;
   var o_id = new ObjectId(id);
   db.parties.find({_id:o_id})
 }
@@ -36,40 +36,41 @@ app.get('/home', (req, res) => {
 // Adding new party
 
 app.post('/new_party', async (req, res) => {
+  const newUserID = create_UUID()
+  const newPartyID = create_UUID()
+
   // Make a new user
   const user = new UserModel({
+    user_id: newUserID,
     first_name: req.body.first_name,
     surname: req.body.surname,
     email: req.body.email_address,
-    party_id: null,
+    party_id: newPartyID,
   });
-  // makes new party 
+  // makes new party
   const party = new PartyModel({
-    invite_code: null,
+    party_id: newPartyID,
     party_location: req.body.party_location,
     max_cost: req.body.max_cost,
     party_date: Date.parse(req.body.party_date),
     closing_date: Date.parse(req.body.closing_date),
+    host_id: newUserID
   });
 
-  user.save((err, resp) => {
+  user.save((err, dbResponse) => {
     if (err) {
       console.log('ERROR!')
       console.log(err)
     } else {
-
-      // Generating users host ID
-      party.host_id = create_UUID()
-      // Copying host ID to user ID
-      user.user_id = party.host_id
-      // Generating invite_code
-      party.invite_code = create_UUID()
-      // Linking invite code to users
-      user.party_id = party.invite_code
-      party.save()
-      console.log('New party save confirmed')
-      user.save()
-      console.log('New host save confirmed')
+      party.save((err, dbResponse) => {
+        if (err) {
+          console.log('ERROR!')
+          console.log(err)
+        } else {
+          console.log('New party save confirmed')
+          res.send('Success!')
+        }
+      })
     }
   })
 })

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Party = mongoose.Schema({
-  invite_code: {
+  party_id: {
     type: String,
     default: null
   },
