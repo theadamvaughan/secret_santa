@@ -68,7 +68,7 @@ app.post('/new_party', async (req, res) => {
           console.log(err)
         } else {
           console.log('New party save confirmed')
-          res.send('Success!')
+          res.send('Success! ' + party.party_id)
         }
       })
     }
@@ -79,16 +79,38 @@ app.post('/new_party', async (req, res) => {
 
 // NEED TO GET THIS TO FIND BY INVITE IN THE URL..................................
 
-app.get('/party/:invite_code', async (req, res) => {
-  const id = req.params.id;
-  const party = await PartyModel.findById(id)
+// https://secretsanta.com/party/3333-3333-3333-3333
 
-  try {
-    res.send(party)
-  } catch (err) {
-    res.send(err)
-  }
+app.get('/party/invite/:party_id', async (req, res) => {
+  const party = await PartyModel.findOne({party_id: req.params.party_id});
+  console.log(party)
+  // Show them a web page containing
+  //  - The party details
+  //  - A form to join the party
+  res.send('This is the party page for party with location ' + party.party_location)
+})
 
+// Post to this route to add a new user to the party.
+app.post('/party/invite/:party_id', async (req, res) => {
+  const newUserID = create_UUID()
+
+  const user = new UserModel({
+    user_id: newUserID,
+    first_name: req.body.first_name,
+    surname: req.body.surname,
+    email: req.body.email_address,
+    party_id: req.params.party_id,
+  });
+
+  user.save((err, resp) => {
+    if (err) {
+      console.log('ERROR!')
+      console.log(err)
+    } else {
+      console.log('User save confirmed')
+      res.send(user)
+    }
+  })
 })
 
 // Find all parties
@@ -104,28 +126,7 @@ app.get('/parties', async (req, res) => {
 })
 
 
-// Add user to a party
-// NEED TO ADD THE PARTY ID FROM THE DATABASE AS A RELATIONSHIP TO THE USER.............................
 
-app.post('/party/add', async (req, res) => {
-  const user = new UserModel({
-    first_name: req.body.first_name,
-    surname: req.body.surname,
-    email: req.body.email_address,
-    party_id: req.body.invite,
-  });
-
-user.save((err, resp) => {
-    if (err) {
-      console.log('ERROR!')
-      console.log(err)
-    } else {
-      user.user_id = create_UUID()
-      user.save()
-      console.log('User save confirmed')
-    }
-  })
-})
 
 // Find all users
 
