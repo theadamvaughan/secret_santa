@@ -5,6 +5,7 @@ const env = require('dotenv/config')
 const UserModel = require('./models/user')
 const PartyModel = require('./models/party')
 app.use(express.json())
+app.set('view engine', 'ejs')
 
 
 function create_UUID(){
@@ -83,11 +84,11 @@ app.post('/new_party', async (req, res) => {
 
 app.get('/party/invite/:party_id', async (req, res) => {
   const party = await PartyModel.findOne({party_id: req.params.party_id});
-  console.log(party)
+  const host = await UserModel.findOne({user_id: party.host_id});
   // Show them a web page containing
   //  - The party details
   //  - A form to join the party
-  res.send('This is the party page for party with location ' + party.party_location)
+  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname})
 })
 
 // Post to this route to add a new user to the party.
