@@ -1,14 +1,24 @@
 <html>
   <head></head>
   <body>
-        <h1>Welcome to <%= hostname %>'s Party</h1>
+    <h1>Welcome to <%= hostname %>'s Party</h1>
 
     <p>Party ID: <%= party.party_id %></p>
     <p>Party Location: <%= party.party_location %></p>
+    <p id="date"></p>
+    <p id="time"></p>
+    <p>Max present cost: £<%= party.max_cost %></p>
+
 
     <form action="">
       Your email:
       <input type="email">
     </form>
   </body>
+  <script>
+    var date = new Date('<%= party.party_date %>')
+    document.getElementById("date").innerHTML = 'Party Date: ' + date.toDateString();
+    var time = new Date('<%= party.party_date %>')
+    document.getElementById("time").innerHTML = 'Party Time: ' + date.toLocaleTimeString();
+  </script>
 </html>
