@@ -4,33 +4,49 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheet.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
-  <title>Secret Santa</title>
+  <title>Party Created!</title>
   <meta name="description" content="Web based secret santa application." />
 </head>
 
 <body>
 
-<container class="container">
+  <container class="container">
 
-  <div class="col-12 cont-main">
-    <div>
-      <h1>Secret Santa</h1>
+    <div class="col-12 cont-main">
+      <div>
+        <h1>Party Created!</h1>
+      </div>
+
+      <p>Congratulations <%= hostname %>! Your Party has been created</p>
+      <p>Here's your unique link:</p>
+      <input class="unique_code" value="www.mysecretsanta.net/party/invite/e8af3856-1b96-4215-9d76-930d5585e48d" id="myInput">
+      <div class="copy_link">
+        <button onclick="myFunction()" id="myInput" class="btn btn-success btn-lg btn-copy">Copy Link</button>
+      </div>
+
+      <!-- <p>The copy function is not supported in IE8 and earlier.</p> -->
+      
+      <script>
+        function myFunction() {
+          var copyText = document.getElementById("myInput");
+          copyText.select();
+          copyText.setSelectionRange(0, 99999)
+          document.execCommand("copy");
+          alert("Text copied to clipboard: " + copyText.value);
+        }
+      </script>
     </div>
 
-    <div class="main-button">
-      <a href="/party/new_party"><button type="button" class="btn btn-success btn-lg btn-main">New Party</button></a>
-    </div>
-  </div>
+  </container>
 
-</container>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -43,9 +59,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  
+
   <!-- Snowstorm JavaScript -->
-  <script src="snowstorm-min.js"></script>
+  <script src="/snowstorm-min.js"></script>
 </body>
 
 </html>
