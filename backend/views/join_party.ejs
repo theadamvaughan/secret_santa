@@ -1,7 +1,19 @@
 <html>
-  <head></head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  
+    <title>Join Party</title>
+    <meta name="description" content="Web based secret santa application. Creating a new party" />
+  </head>
   <body>
-    <h1>Welcome to <%= hostname %>'s Party</h1>
 
     <p>Party ID: <%= party.party_id %></p>
     <p>Party Location: <%= party.party_location %></p>
@@ -10,10 +22,38 @@
     <p>Max present cost: £<%= party.max_cost %></p>
 
 
-    <form action="">
-      Your email:
-      <input type="email">
-    </form>
+      <div class="container-new-party">
+      
+        <div class="col-12 cont-main">
+          <div>
+            <h1>Join <%= hostname %>'s Party</h1>
+          </div>
+      
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="validationCustom01">First name</label>
+                <input type="text" class="form-control" id="validationCustom01" aria-label="first name"
+                  placeholder="First Name" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="hostSurname">Surname</label>
+                <input type="text" class="form-control" aria-label="surname" placeholder="Surname" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress">Email Address</label>
+              <input type="email" class="form-control" id="inputEmailAddress" aria-label="email address"
+                placeholder="email@example.co.uk" required>
+            </div>
+      
+            <div class="btn-new-party">
+              <a href="party_joined.html"><button type="submit" class="btn btn-success btn-lg">Join Party</button></a>
+            </div>
+          </form>
+        </div>
+      
+      </div>
   </body>
   <script>
     var date = new Date('<%= party.party_date %>')

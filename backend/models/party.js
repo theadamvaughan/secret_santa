@@ -4,9 +4,6 @@ const Party = mongoose.Schema({
     type: String,
     default: null
   },
-  host_id: {
-    type: String,
-  },
   party_location: {
     type: String,
     required:true
@@ -20,6 +17,9 @@ const Party = mongoose.Schema({
   },
   closing_date: {
     type: Date
+  },
+  host_id: {
+  type: String,
   }
 })
 

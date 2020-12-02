@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 const env = require('dotenv/config')
 const UserModel = require('./models/user')
 const PartyModel = require('./models/party')
+app.use(express.static(__dirname + '/public'));
+
 app.use(express.json())
 app.set('view engine', 'ejs')
 
@@ -26,12 +28,8 @@ function find_party_id() {
 }
 
 
-app.get('/home', (req, res) => {
-  res.json({
-    body: {
-      message: "Home API"
-    }
-  })
+app.get('/', function (req, res) {
+  res.render('index')
 })
 
 // Adding new party
@@ -81,14 +79,19 @@ app.post('/new_party', async (req, res) => {
 // NEED TO GET THIS TO FIND BY INVITE IN THE URL..................................
 
 // https://secretsanta.com/party/3333-3333-3333-3333
+// http://localhost:3000/party/invite/9f8f1e39-4be0-4bf3-98ff-b4ea3e993c7a
 
 app.get('/party/invite/:party_id', async (req, res) => {
   const party = await PartyModel.findOne({party_id: req.params.party_id});
-  const host = await UserModel.findOne({user_id: party.host_id});
+  const host = await UserModel.findOne({user_id: party.host_id });
+  const date = await PartyModel.findOne({party_date: req.params.party_date})
   // Show them a web page containing
   //  - The party details
   //  - A form to join the party
-  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname})
+
+// somehow it has something to do with THIS
+
+  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
 })
 
 // Post to this route to add a new user to the party.
