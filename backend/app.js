@@ -27,12 +27,21 @@ function find_party_id() {
   db.parties.find({_id:o_id})
 }
 
+// ............................... Web App Code .................................
+
+// ......... Home web page
 
 app.get('/', function (req, res) {
   res.render('index')
 })
 
-// Adding new party
+// ......... New party creation page
+
+app.get('/party/new_party', function (req, res) {
+  res.render('new_party')
+})
+
+// ......... Posting new party info to the database
 
 app.post('/new_party', async (req, res) => {
   const newUserID = create_UUID()
@@ -74,27 +83,30 @@ app.post('/new_party', async (req, res) => {
   })
 })
 
-// Get party by ID
+// .......... Party created
 
-// NEED TO GET THIS TO FIND BY INVITE IN THE URL..................................
+app.get('/party/party_created/:party_id', async (req, res) => {
+  const party = await PartyModel.findOne({party_id: req.params.party_id});
+  const host = await UserModel.findOne({user_id: party.host_id });
+  const date = await PartyModel.findOne({party_date: req.params.party_date})
 
-// https://secretsanta.com/party/3333-3333-3333-3333
-// http://localhost:3000/party/invite/9f8f1e39-4be0-4bf3-98ff-b4ea3e993c7a
+  res.render('party_created', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
+})
+
+
+
+// ......... Join party page
 
 app.get('/party/invite/:party_id', async (req, res) => {
   const party = await PartyModel.findOne({party_id: req.params.party_id});
   const host = await UserModel.findOne({user_id: party.host_id });
   const date = await PartyModel.findOne({party_date: req.params.party_date})
-  // Show them a web page containing
-  //  - The party details
-  //  - A form to join the party
-
-// somehow it has something to do with THIS
 
   res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
 })
 
 // Post to this route to add a new user to the party.
+
 app.post('/party/invite/:party_id', async (req, res) => {
   const newUserID = create_UUID()
 
@@ -117,6 +129,22 @@ app.post('/party/invite/:party_id', async (req, res) => {
   })
 })
 
+// ......... Party Joined confirmation page
+
+app.get('/party/party_joined/:party_id', async (req, res) => {
+  const party = await PartyModel.findOne({party_id: req.params.party_id});
+  const host = await UserModel.findOne({user_id: party.host_id });
+  const date = await PartyModel.findOne({party_date: req.params.party_date})
+
+  res.render('party_joined', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
+})
+
+
+
+
+
+
+
 // Find all parties
 
 app.get('/parties', async (req, res) => {
@@ -129,11 +157,7 @@ app.get('/parties', async (req, res) => {
   }
 })
 
-
-
-
 // Find all users
-
 
 app.get('/all', async (req, res) => {
   const users = await UserModel.find()
@@ -193,9 +217,7 @@ app.patch('/user/:id', async (req, res) => {
   }
 })
 
-
 // Start up messages
-
 
 app.listen(3000, () => {
   console.log('Server is running')
