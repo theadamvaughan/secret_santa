@@ -4,9 +4,14 @@ const mongoose = require('mongoose')
 const env = require('dotenv/config')
 const UserModel = require('./models/user')
 const PartyModel = require('./models/party')
-app.use(express.static(__dirname + '/public'));
+const bodyParser = require('body-parser')
+
+app.use(express.static(__dirname + '/public'))
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.set('view engine', 'ejs')
 
 
@@ -43,16 +48,16 @@ app.get('/party/new_party', function (req, res) {
 
 // ......... Posting new party info to the database
 
-app.post('/new_party', async (req, res) => {
+app.post('/party/new_party', (req, res) => {
   const newUserID = create_UUID()
   const newPartyID = create_UUID()
-
+  console.log(req.body);
   // Make a new user
   const user = new UserModel({
     user_id: newUserID,
     first_name: req.body.first_name,
     surname: req.body.surname,
-    email: req.body.email_address,
+    email_address: req.body.email_address,
     party_id: newPartyID,
   });
   // makes new party
@@ -76,7 +81,8 @@ app.post('/new_party', async (req, res) => {
           console.log(err)
         } else {
           console.log('New party save confirmed')
-          res.send('Success! ' + party.party_id)
+          // res.send('Success! ' + party.party_id)
+          res.redirect(`/party/party_created/${party.party_id}`)
         }
       })
     }
