@@ -27,7 +27,7 @@
 
       <p>Congratulations <%= hostname %>! Your Party has been created</p>
       <p>Here's your unique link:</p>
-      <input class="unique_code" value="www.mysecretsanta.net/party/invite/e8af3856-1b96-4215-9d76-930d5585e48d" id="myInput">
+      <input class="unique_code" value="localhost:3000/party/invite/<%= partyCode %>" id="myInput">
       <div class="copy_link">
         <button onclick="myFunction()" id="myInput" class="btn btn-success btn-lg btn-copy">Copy Link</button>
       </div>
