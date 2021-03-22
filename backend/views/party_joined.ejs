@@ -25,10 +25,11 @@
         <h1>Party Joined!</h1>
       </div>
       <p>Party ID: <%= party.party_id %></p>
-      <p>Congratulations Jim, you have joined <%= hostname %>'s Party!</p>
-      <p id="date"></p>
-      <p id="time"></p>
+      <p>Congratulations! You have joined <%= hostname %>'s Party!</p>
       <p>The Location is <%= party.party_location %></p>
+      <p>The Party is on <%=party.party_date %> and starts at <%=party.party_date %></p>
+      <p>Keep an eye on your emails as the app will send you your match at <%=party.closing_date %></p>
+      </p>
       <p>Max present cost: £<%= party.max_cost %></p>
     </div>
 
@@ -45,11 +46,6 @@
   
   <!-- Snowstorm JavaScript -->
   <script src="/snowstorm-min.js"></script>
-  <script>
-    var date = new Date('<%= party.party_date %>')
-    document.getElementById("date").innerHTML = 'Party Date: ' + date.toDateString();
-    var time = new Date('<%= party.party_date %>')
-    document.getElementById("time").innerHTML = 'Party Time: ' + date.toLocaleTimeString();
-  </script>
+
 
 </html>

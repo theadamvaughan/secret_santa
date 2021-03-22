@@ -32,6 +32,17 @@ function find_party_id() {
   db.parties.find({_id:o_id})
 }
 
+function create_date(date, time) {
+  // This expects a date to be YYYY-MM-DD
+  // This expects a time of HH:MM
+  var date = new Date(date + 'T' + time + ':00Z');
+  return date
+}
+
+app.get('/test', function (req, res) {
+  res.send(create_date("2001-12-12","20:00"))
+})
+
 // ............................... Web App Code .................................
 
 // ......... Home web page
@@ -65,9 +76,9 @@ app.post('/party/new_party', (req, res) => {
     party_id: newPartyID,
     party_location: req.body.party_location,
     max_cost: req.body.max_cost,
-    party_date: Date.parse(req.body.party_date),
-    closing_date: Date.parse(req.body.closing_date),
-    host_id: newUserID
+    party_date: create_date(req.body.party_date, req.body.partyStart),
+    closing_date: create_date(req.body.closing_date, req.body.partyEnd),
+    host_id: newUserID,
   });
 
   user.save((err, dbResponse) => {
@@ -96,7 +107,7 @@ app.get('/party/party_created/:party_id', async (req, res) => {
   const host = await UserModel.findOne({user_id: party.host_id });
   const date = await PartyModel.findOne({party_date: req.params.party_date})
 
-  res.render('party_created', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
+  res.render('party_created', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, partyCode: party.party_id})
 })
 
 
@@ -108,29 +119,30 @@ app.get('/party/invite/:party_id', async (req, res) => {
   const host = await UserModel.findOne({user_id: party.host_id });
   const date = await PartyModel.findOne({party_date: req.params.party_date})
 
-  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
+  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, partyCode: party.party_id})
 })
 
 // Post to this route to add a new user to the party.
 
 app.post('/party/invite/:party_id', async (req, res) => {
-  const newUserID = create_UUID()
-
+  const party = await PartyModel.findOne({ party_id: req.params.party_id });
+  console.log(req.params.party_id)
+  const newUserID = create_UUID();
   const user = new UserModel({
     user_id: newUserID,
     first_name: req.body.first_name,
     surname: req.body.surname,
-    email: req.body.email_address,
-    party_id: req.params.party_id,
+    email_address: req.body.email_address,
+    party_id: party.party_id,
   });
 
-  user.save((err, resp) => {
+  user.save((err, dbResponse) => {
     if (err) {
       console.log('ERROR!')
       console.log(err)
     } else {
       console.log('User save confirmed')
-      res.send(user)
+      res.redirect(`/party/party_joined/${party.party_id}`)
     }
   })
 })
@@ -140,7 +152,7 @@ app.post('/party/invite/:party_id', async (req, res) => {
 app.get('/party/party_joined/:party_id', async (req, res) => {
   const party = await PartyModel.findOne({party_id: req.params.party_id});
   const host = await UserModel.findOne({user_id: party.host_id });
-  const date = await PartyModel.findOne({party_date: req.params.party_date})
+  const date = await PartyModel.findOne({ party_date: req.params.party_date })
 
   res.render('party_joined', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
 })
