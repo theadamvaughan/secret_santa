@@ -76,8 +76,8 @@ app.post('/party/new_party', (req, res) => {
     party_id: newPartyID,
     party_location: req.body.party_location,
     max_cost: req.body.max_cost,
-    party_date: create_date(req.body.party_date, req.body.partyStart),
-    closing_date: create_date(req.body.closing_date, req.body.partyEnd),
+    party_date: create_date(req.body.party_date, req.body.party_start_time),
+    closing_date: create_date(req.body.reg_closing_date, req.body.reg_closing_time),
     host_id: newUserID,
   });
 
@@ -107,7 +107,7 @@ app.get('/party/party_created/:party_id', async (req, res) => {
   const host = await UserModel.findOne({user_id: party.host_id });
   const date = await PartyModel.findOne({party_date: req.params.party_date})
 
-  res.render('party_created', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, partyCode: party.party_id})
+  res.render('party_created', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, party_code: party.party_id})
 })
 
 
@@ -119,7 +119,7 @@ app.get('/party/invite/:party_id', async (req, res) => {
   const host = await UserModel.findOne({user_id: party.host_id });
   const date = await PartyModel.findOne({party_date: req.params.party_date})
 
-  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, partyCode: party.party_id})
+  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, party_code: party.party_id})
 })
 
 // Post to this route to add a new user to the party.
