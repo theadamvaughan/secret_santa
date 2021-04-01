@@ -27,9 +27,10 @@
       <p>Party ID: <%= party.party_id %></p>
       <p>Congratulations! You have joined <%= hostname %>'s Party!</p>
       <p>The Location is <%= party.party_location %></p>
-      <p>The Party is on <%=party.party_date %> and starts at <%=party.party_date %></p>
-      <p>Keep an eye on your emails as the app will send you your match at <%=party.closing_date %></p>
-      </p>
+      <p>The Party is on <%= party.party_date %></p>
+      <p><%= full_date %></p>
+      <p><%= full_time %></p>
+      <p>Keep an eye on your emails as the app will send you your match at <%= party.closing_date %></p>
       <p>Max present cost: £<%= party.max_cost %></p>
     </div>
 
@@ -46,6 +47,5 @@
   
   <!-- Snowstorm JavaScript -->
   <script src="/snowstorm-min.js"></script>
-
 
 </html>

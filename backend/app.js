@@ -39,6 +39,18 @@ function create_date(date, time) {
   return date
 }
 
+function get_date(date) {
+  console.log
+  r = date
+  return r
+}
+
+function get_time(time) {
+  console.log
+  var hour = getHours(time);
+  return hour
+}
+
 app.get('/test', function (req, res) {
   res.send(create_date("2001-12-12","20:00"))
 })
@@ -150,11 +162,21 @@ app.post('/party/invite/:party_id', async (req, res) => {
 // ......... Party Joined confirmation page
 
 app.get('/party/party_joined/:party_id', async (req, res) => {
+  
   const party = await PartyModel.findOne({party_id: req.params.party_id});
   const host = await UserModel.findOne({user_id: party.host_id });
-  const date = await PartyModel.findOne({ party_date: req.params.party_date })
+  const date = await PartyModel.findOne({ party_date: req.params.party_date });
 
-  res.render('party_joined', {party: party, hostname: host.first_name + ' ' + host.surname, date: date})
+  var party_date = party.party_date;
+
+  var day = party_date.getDate(); 
+  var month = party_date.getMonth() + 1;
+  var year = party_date.getFullYear()
+  var full_date = party_date.toDateString()
+  var hour = party_date.getHours()
+  var minutes = party_date.getMinutes()
+
+  res.render('party_joined', {party: party, hostname: host.first_name + ' ' + host.surname, full_date: full_date, full_time: hour + ':' + minutes})
 })
 
 
