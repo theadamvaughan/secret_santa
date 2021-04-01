@@ -40,15 +40,14 @@ function create_date(date, time) {
 }
 
 function get_date(date) {
-  console.log
-  r = date
-  return r
+  var full_date = date.toDateString();
+  return full_date
 }
 
-function get_time(time) {
-  console.log
-  var hour = getHours(time);
-  return hour
+function get_time(date) {
+  var hour = date.getHours();
+  var minutes = date.getMinutes()
+  return hour + ':' + minutes
 }
 
 app.get('/test', function (req, res) {
@@ -167,16 +166,13 @@ app.get('/party/party_joined/:party_id', async (req, res) => {
   const host = await UserModel.findOne({user_id: party.host_id });
   const date = await PartyModel.findOne({ party_date: req.params.party_date });
 
-  var party_date = party.party_date;
+  var party_date = get_date(party.party_date);
+  var party_time = get_time(party.party_date);
+  var closing_date = get_date(party.closing_date);
+  var closing_time = get_time(party.closing_date);
 
-  var day = party_date.getDate(); 
-  var month = party_date.getMonth() + 1;
-  var year = party_date.getFullYear()
-  var full_date = party_date.toDateString()
-  var hour = party_date.getHours()
-  var minutes = party_date.getMinutes()
 
-  res.render('party_joined', {party: party, hostname: host.first_name + ' ' + host.surname, full_date: full_date, full_time: hour + ':' + minutes})
+  res.render('party_joined', {party: party, hostname: host.first_name + ' ' + host.surname, party_date: party_date, party_time: party_time, closing_date: closing_date, closing_time: closing_time})
 })
 
 
