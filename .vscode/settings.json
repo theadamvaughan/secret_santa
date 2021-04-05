@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/c551b558-fad4-43c0-b07b-9be9b7c1adb4/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/adamvaughansecretsanta",
+  "appService.deploySubpath": "."
+}
