@@ -258,7 +258,7 @@ app.patch('/user/:id', async (req, res) => {
 
 // Start up messages
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server is running')
 }
 )
