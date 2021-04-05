@@ -4,7 +4,7 @@ The web app will collate participants names and email addresses up until a date 
 
 # Running the App
 
-First add a `.env` file to `backend/` and set a variable to point to the MongoDB resource.
+First add a `.env` file to the root of the project and set a variable to point to the MongoDB resource.
 
 ```
 DB=mongodb+srv://...
