@@ -20,8 +20,10 @@
         <div class="col-12 cont-main">
           <div>
             <h1>Join <%= hostname %>'s Party</h1>
-            <p>Party ID: <%= party.party_id %></p>
           </div>
+          <p>Party ID: <%= party.party_id %></p>
+          <p>Party Date: <%= party.party_date %></p>
+          <p>Party Location: <%= party.party_location %></p>
       
           <form action="/party/invite/<%= party.party_id %>" method="POST">
             <div class="form-row">
@@ -60,5 +62,5 @@
     
     <!-- Snowstorm JavaScript -->
     <script src="/snowstorm-min.js"></script>
-    
+
 </html>
