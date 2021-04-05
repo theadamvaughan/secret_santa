@@ -48,8 +48,11 @@ function get_time(date) {
   var hour = date.getHours();
   var minutes = date.getMinutes();
   if (date.getMinutes() < 10) {
-       return hour + ':' + '0' + minutes;
-   }
+      return hour + ':' + '0' + minutes;
+  }
+  else {
+    return hour + ':' + minutes;
+  }
 }
 
 app.get('/test', function (req, res) {
