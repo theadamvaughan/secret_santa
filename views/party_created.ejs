@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
   <title>Party Created!</title>
-  <meta name="description" content="Web based secret santa application." />
+  <meta name="description" content="Forget pulling names out of a hat and create your Secret Santa party via the web!" />
 </head>
 
 <body>
@@ -27,7 +27,7 @@
 
       <p>Congratulations <%= hostname %>! Your Party has been created</p>
       <p>Here's your unique link:</p>
-      <input class="unique_code" value="localhost:3000/party/invite/<%= party_code %>" id="myInput">
+      <input class="unique_code" value="mysecretsanta.net/party/invite/<%= party_code %>" id="myInput">
       <div class="copy_link">
         <button onclick="myFunction()" id="myInput" class="btn btn-success btn-lg btn-copy">Copy Link</button>
       </div>
