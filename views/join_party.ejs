@@ -22,7 +22,7 @@
             <h1>Join <%= hostname %>'s Party</h1>
           </div>
           <p>Party ID: <%= party.party_id %></p>
-          <p>Party Date: <%= party.party_date %></p>
+          <p>Party Date: <%= party_date %> at <%= party_time %></p>
           <p>Party Location: <%= party.party_location %></p>
       
           <form action="/party/invite/<%= party.party_id %>" method="POST">

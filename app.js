@@ -131,9 +131,13 @@ app.get('/party/party_created/:party_id', async (req, res) => {
 app.get('/party/invite/:party_id', async (req, res) => {
   const party = await PartyModel.findOne({party_id: req.params.party_id});
   const host = await UserModel.findOne({user_id: party.host_id });
-  const date = await PartyModel.findOne({party_date: req.params.party_date})
+  
+  var party_date = get_date(party.party_date);
+  var party_time = get_time(party.party_date);
+  var closing_date = get_date(party.closing_date);
+  var closing_time = get_time(party.closing_date);
 
-  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, date: date, party_code: party.party_id})
+  res.render('join_party', {party: party, hostname: host.first_name + ' ' + host.surname, party_date: party_date, party_time: party_time, closing_date: closing_date, closing_time: closing_time, party_code: party.party_id})
 })
 
 // Post to this route to add a new user to the party.
@@ -167,7 +171,6 @@ app.get('/party/party_joined/:party_id', async (req, res) => {
   
   const party = await PartyModel.findOne({party_id: req.params.party_id});
   const host = await UserModel.findOne({user_id: party.host_id });
-  const date = await PartyModel.findOne({ party_date: req.params.party_date });
 
   var party_date = get_date(party.party_date);
   var party_time = get_time(party.party_date);
