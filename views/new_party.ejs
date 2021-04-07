@@ -93,18 +93,23 @@
       var party_date = Date.parse(document.getElementById("party_date").value);
       var closing_date = Date.parse(document.getElementById("reg_closing_date").value);
       var date_now = Date.now()
-      if (date_now > party_date) {
-        alert("You cannot have a date in the past");
+      if (party_date == closing_date) {
+        alert("The closing date and party date cannot be the same date");
         return false;
       }
 
-      else if (party_date < closing_date) {
-        alert("The closing date cannot be after the party date");
+      else if (date_now > party_date) {
+        alert("The party date must be after today's date");
         return false;
       }
 
       else if (date_now > closing_date) {
-        alert("You cannot have a date in the past");
+        alert("The closing date must be after today's date");
+        return false;
+      }
+
+      else if (closing_date > party_date) {
+        alert("The party date must be after the closing date");
         return false;
       }
 
