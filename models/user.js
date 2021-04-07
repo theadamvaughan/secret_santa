@@ -18,6 +18,9 @@ const User = mongoose.Schema({
   },
   party_id: {
     type: String,
+  },
+    date_created: {
+    type: Date
   }
 })
 

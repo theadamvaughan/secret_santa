@@ -20,7 +20,11 @@ const Party = mongoose.Schema({
   },
   host_id: {
   type: String,
+  },
+  date_created: {
+    type: Date
   }
+
 })
 
 module.exports = mongoose.model('Party', Party)

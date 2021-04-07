@@ -84,6 +84,7 @@ app.post('/party/new_party', (req, res) => {
     surname: req.body.surname,
     email_address: req.body.email_address,
     party_id: newPartyID,
+    date_created: new Date(),
   });
   // makes new party
   const party = new PartyModel({
@@ -93,6 +94,7 @@ app.post('/party/new_party', (req, res) => {
     party_date: create_date(req.body.party_date, req.body.party_start_time),
     closing_date: create_date(req.body.reg_closing_date, req.body.reg_closing_time),
     host_id: newUserID,
+    date_created: new Date(),
   });
 
   user.save((err, dbResponse) => {
