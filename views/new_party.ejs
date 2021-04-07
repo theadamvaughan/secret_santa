@@ -25,7 +25,7 @@
         <h1>New Party</h1>
       </div>
 
-      <form action="/party/new_party" method="POST">
+      <form action="/party/new_party" onsubmit="return CompareDate()" method="POST">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="first_name">First name</label>
@@ -87,7 +87,26 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-
+  <script type="text/javascript" language="javascript">
+    function CompareDate() {
+      //Note: 00 is month i.e. January
+      var party_date = Date.parse(document.getElementById("party_date").value);
+      var closing_date = Date.parse(document.getElementById("reg_closing_date").value);
+      var date_now = Date.now()
+      if (date_now > party_date) {
+        alert("You cannot have a party date in the past");
+        return false;
+      }
+      else if (party_date < closing_date) {
+        alert("The closing date cannot be after the party date");
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+    CompareDate();
+  </script>
   <!-- Snowstorm JavaScript -->
   <script src="/snowstorm-min.js"></script>
 </body>
